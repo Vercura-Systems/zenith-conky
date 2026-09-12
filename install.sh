@@ -47,24 +47,27 @@ if [ -n "$DEFAULT_IFACE" ]; then
     sed -i "s/\${totaldown}/\${totaldown $DEFAULT_IFACE}/g" "$CONKY_DIR/conky.conf"
 fi
 
-# 5. Enable Autostart
-AUTOSTART_DIR="$HOME/.config/autostart"
-mkdir -p "$AUTOSTART_DIR"
-cat << 'AUTOSTART' > "$AUTOSTART_DIR/conky.desktop"
-[Desktop Entry]
-Type=Application
-Name=Zenith Conky
-Exec=conky --daemonize --pause=1
-StartupNotify=false
-Terminal=false
-Categories=System;Monitor;
-AUTOSTART
+# 5. Enable Autostart via systemd user service
+SERVICE_DIR="$HOME/.config/systemd/user"
+mkdir -p "$SERVICE_DIR"
+cat << 'SERVICE' > "$SERVICE_DIR/zenith-conky.service"
+[Unit]
+Description=Zenith Conky HUD System Telemetry
+After=graphical-session.target
 
-# 6. Restart Conky
-echo -e "${CYAN}[*] Reloading Conky process...${NC}"
-killall conky 2>/dev/null || true
-sleep 1
-conky --daemonize --pause=1
+[Service]
+Type=exec
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/conky -c %h/.config/conky/conky.conf
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
+SERVICE
+
+systemctl --user daemon-reload
+systemctl --user enable --now zenith-conky.service
 
 echo -e "\n${GREEN}[✓] Zenith Conky installed and running successfully!${NC}"
 echo -e "${CYAN}[*] Config file:${NC} ~/.config/conky/conky.conf"
