@@ -3,6 +3,7 @@ format = """
 $directory\
 $git_branch\
 $git_status\
+$php\
 $nodejs\
 $python\
 $rust\
@@ -37,6 +38,11 @@ modified = "! "
 staged = "+ "
 renamed = "» "
 deleted = "✘ "
+
+[php]
+symbol = "🐘 "
+style = "bold #A855F7"
+format = "[$symbol($version )]($style)"
 
 [nodejs]
 symbol = "⬢ "
