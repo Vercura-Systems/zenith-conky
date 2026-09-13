@@ -10,9 +10,14 @@ echo -e "${RED}[*] Uninstalling Zenith Conky...${NC}"
 # Stop Conky
 killall conky 2>/dev/null || true
 
-# Remove config
+# Remove config and autostart files
 rm -f "$HOME/.config/conky/conky.conf"
+rm -f "$HOME/.config/conky/start_zenith.sh"
+rm -f "$HOME/.config/autostart/zenith-conky.desktop"
 rm -f "$HOME/.config/autostart/conky.desktop"
+systemctl --user disable --now zenith-conky.service 2>/dev/null || true
+rm -f "$HOME/.config/systemd/user/zenith-conky.service"
+systemctl --user daemon-reload 2>/dev/null || true
 
 # Check for backup to restore
 LATEST_BACKUP=$(ls -t "$HOME/.config/conky/conky.conf.backup."* 2>/dev/null | head -n 1 || echo "")

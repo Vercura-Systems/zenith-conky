@@ -21,7 +21,7 @@
 Clone and run the automated installer:
 
 ```bash
-git clone https://github.com/odesigo/zenith-conky.git ~/.zenith-conky
+git clone https://github.com/Vercura-Systems/zenith-conky.git ~/.zenith-conky
 cd ~/.zenith-conky
 ./install.sh
 ```

@@ -47,27 +47,47 @@ if [ -n "$DEFAULT_IFACE" ]; then
     sed -i "s/\${totaldown}/\${totaldown $DEFAULT_IFACE}/g" "$CONKY_DIR/conky.conf"
 fi
 
-# 5. Enable Autostart via systemd user service
-SERVICE_DIR="$HOME/.config/systemd/user"
-mkdir -p "$SERVICE_DIR"
-cat << 'SERVICE' > "$SERVICE_DIR/zenith-conky.service"
-[Unit]
-Description=Zenith Conky HUD System Telemetry
-After=graphical-session.target
+# 5. Install Launcher Script & Configure XDG Autostart
+cat << 'LAUNCHER' > "$CONKY_DIR/start_zenith.sh"
+#!/usr/bin/env bash
+# Wait for display server and desktop compositor to initialize
+sleep 2
 
-[Service]
-Type=exec
-Environment=DISPLAY=:0
-ExecStart=/usr/bin/conky -c %h/.config/conky/conky.conf
-Restart=on-failure
-RestartSec=3
+# Kill any existing conky instances
+killall -q conky || true
 
-[Install]
-WantedBy=default.target
-SERVICE
+# Launch Zenith Conky
+exec /usr/bin/conky -c "$HOME/.config/conky/conky.conf"
+LAUNCHER
+chmod +x "$CONKY_DIR/start_zenith.sh"
 
-systemctl --user daemon-reload
-systemctl --user enable --now zenith-conky.service
+# Configure XDG Autostart (compatible with Wayland and X11)
+AUTOSTART_DIR="$HOME/.config/autostart"
+mkdir -p "$AUTOSTART_DIR"
+cat << DESKTOP > "$AUTOSTART_DIR/zenith-conky.desktop"
+[Desktop Entry]
+Type=Application
+Name=Zenith Conky HUD
+Comment=Zenith Conky System Telemetry HUD
+Exec=$CONKY_DIR/start_zenith.sh
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+X-GNOME-Autostart-Delay=2
+StartupNotify=false
+Terminal=false
+DESKTOP
+
+# Clean up obsolete systemd user service if present
+if [ -f "$HOME/.config/systemd/user/zenith-conky.service" ]; then
+    systemctl --user disable --now zenith-conky.service 2>/dev/null || true
+    rm -f "$HOME/.config/systemd/user/zenith-conky.service"
+    systemctl --user daemon-reload 2>/dev/null || true
+fi
+
+# 6. Start Conky now
+nohup "$CONKY_DIR/start_zenith.sh" >/dev/null 2>&1 &
 
 echo -e "\n${GREEN}[✓] Zenith Conky installed and running successfully!${NC}"
 echo -e "${CYAN}[*] Config file:${NC} ~/.config/conky/conky.conf"
+echo -e "${CYAN}[*] Autostart entry:${NC} ~/.config/autostart/zenith-conky.desktop"
