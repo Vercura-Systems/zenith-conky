@@ -211,6 +211,19 @@
     "explorer.confirmPasteNative": false,
     "explorer.confirmDelete": false,
     "explorer.confirmDragAndDrop": false,
+    "explorer.sortOrder": "foldersNfirst",
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.expand": false,
+    "explorer.fileNesting.patterns": {
+        "*.ts": "${capture}.js, ${capture}.d.ts.map, ${capture}.min.js, ${capture}.d.ts",
+        "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+        "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb",
+        "composer.json": "composer.lock",
+        ".env": ".env.*, .env.example",
+        "artisan": ".env*",
+        "vite.config.*": "postcss.config.*, tailwind.config.*",
+        "docker-compose.yml": "docker-compose.*, Dockerfile*"
+    },
     "javascript.updateImportsOnFileMove.enabled": "always",
     "typescript.updateImportsOnFileMove.enabled": "always",
 
@@ -221,6 +234,9 @@
     // PHP & Language Tooling
     "php.suggest.basic": false,
     "php.validate.enable": false,
+    "[blade]": {
+        "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+    },
     "emmet.excludeLanguages": [
         "markdown",
         "php"
