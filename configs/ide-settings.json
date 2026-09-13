@@ -37,6 +37,131 @@
         "breadcrumb.background": "#000000"
     },
 
+    // Zenith Cyber-Contrast Text & Syntax Coloring
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": ["text", "source"],
+                "settings": {
+                    "foreground": "#F0F0F5"
+                }
+            },
+            {
+                "scope": ["comment", "punctuation.definition.comment"],
+                "settings": {
+                    "foreground": "#5C5F77",
+                    "fontStyle": "italic"
+                }
+            },
+            {
+                "scope": [
+                    "keyword",
+                    "keyword.control",
+                    "storage",
+                    "storage.type"
+                ],
+                "settings": {
+                    "foreground": "#E11D48",
+                    "fontStyle": "bold"
+                }
+            },
+            {
+                "scope": [
+                    "string",
+                    "string.quoted",
+                    "string.template",
+                    "punctuation.definition.string"
+                ],
+                "settings": {
+                    "foreground": "#10B981"
+                }
+            },
+            {
+                "scope": [
+                    "entity.name.function",
+                    "support.function",
+                    "meta.function-call"
+                ],
+                "settings": {
+                    "foreground": "#F59E0B"
+                }
+            },
+            {
+                "scope": [
+                    "variable",
+                    "variable.other",
+                    "variable.parameter",
+                    "entity.name.variable"
+                ],
+                "settings": {
+                    "foreground": "#38BDF8"
+                }
+            },
+            {
+                "scope": [
+                    "entity.name.type",
+                    "entity.name.class",
+                    "support.class",
+                    "support.type"
+                ],
+                "settings": {
+                    "foreground": "#A855F7"
+                }
+            },
+            {
+                "scope": [
+                    "constant.numeric",
+                    "constant.language",
+                    "constant.other"
+                ],
+                "settings": {
+                    "foreground": "#FB7185"
+                }
+            },
+            {
+                "scope": [
+                    "entity.name.tag",
+                    "meta.tag.sgml",
+                    "markup.heading"
+                ],
+                "settings": {
+                    "foreground": "#38BDF8",
+                    "fontStyle": "bold"
+                }
+            },
+            {
+                "scope": [
+                    "entity.other.attribute-name",
+                    "entity.other.attribute-name.class",
+                    "entity.other.attribute-name.id"
+                ],
+                "settings": {
+                    "foreground": "#F59E0B"
+                }
+            },
+            {
+                "scope": ["markup.bold"],
+                "settings": {
+                    "fontStyle": "bold",
+                    "foreground": "#FFFFFF"
+                }
+            },
+            {
+                "scope": ["markup.italic"],
+                "settings": {
+                    "fontStyle": "italic",
+                    "foreground": "#F0F0F5"
+                }
+            },
+            {
+                "scope": ["markup.inline.raw", "markup.raw.block"],
+                "settings": {
+                    "foreground": "#10B981"
+                }
+            }
+        ]
+    },
+
     // Typography & Ligatures (Fira Code)
     "editor.fontFamily": "'Fira Code', 'Ubuntu Sans Mono', monospace",
     "editor.fontSize": 13.5,
