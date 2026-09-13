@@ -1,24 +1,23 @@
-# Zenith Conky ⚡
+# Zenith Super-Machine & Developer HUD ⚡
 
-> **A hyper-minimal, borderless developer HUD for Linux desktops.**  
-> Designed for dark setups, ultra-wide displays, and clean workspaces.
-
----
-
-## ✨ Features
-
-- **Borderless & Transparent**: Pure ARGB visual compositing that floats seamlessly over any dark wallpaper.
-- **Micro-Gauges & Telemetry**: Ultra-thin, high-contrast metric bars for CPU load, RAM, Swap, and NVMe disk space.
-- **Real-Time CPU Load Graph**: Smooth hardware utilization graph without clunky frames or borders.
-- **Dynamic Network Traffic**: Live upload and download speeds with automatic network interface detection.
-- **Top Resource Consumers**: Real-time listing of top 5 active processes sorted by CPU and memory consumption.
-- **Modern Clean Typography**: Uses Ubuntu Sans / monospace with subtle letter spacing and hierarchical color coding.
+> **A hyper-minimal developer telemetry HUD, terminal powerhouse, and Linux performance booster.**  
+> Designed for clean workspaces, dark setups, and maximum developer productivity.
 
 ---
 
-## 🚀 Quick Install (1-Liner)
+## 🌟 What is Zenith?
 
-Clone and run the automated installer:
+Zenith turns any standard Ubuntu/Debian installation into an elite, responsive developer workstation:
+
+1. **Zenith Conky HUD**: A borderless, translucent hardware telemetry overlay. Pinned directly to the desktop layer so it stays visible even when triggering "Show Desktop" (<kbd>Win</kbd> + <kbd>D</kbd>).
+2. **Developer Terminal Suite**: Instant setup for Starship prompt, Terminator dark theme, `lazygit`, `ripgrep`, `uv`, and persistent `tmux` sessions that restore your exact split-screen layouts across reboots.
+3. **Kernel & Memory Boost**: 60% zRAM compressed swap (`zstd`), Google BBR TCP network acceleration, inotify file-watcher limits, and Snap storage optimization.
+
+---
+
+## 🚀 1-Liner Installation (New Machine Setup)
+
+On any fresh machine, simply clone and run:
 
 ```bash
 git clone https://github.com/Vercura-Systems/zenith-conky.git ~/.zenith-conky
@@ -26,53 +25,80 @@ cd ~/.zenith-conky
 ./install.sh
 ```
 
-The script will:
-1. Ensure `conky` is installed on your machine.
-2. Back up any existing `~/.config/conky/conky.conf`.
-3. Auto-detect your primary network interface (`wlan0`, `eth0`, etc.).
-4. Enable autostart on system boot.
-5. Reload Conky immediately.
+### Unattended / Scripted Mode:
+```bash
+./install.sh --all    # Installs HUD + Dev Suite + Performance Tuning
+./install.sh --hud    # Installs Conky HUD only
+./install.sh --dev    # Installs Terminal Suite & CLI tools only
+./install.sh --perf   # Applies Kernel & zRAM performance tuning
+./install.sh --apps   # Runs App Streamlining & Snap cleanup
+```
 
 ---
 
-## 🎨 Customization
+## 🖥️ 1. Zenith Conky HUD
 
-The configuration is written in modern Conky Lua (`~/.config/conky/conky.conf`).
+- **Window Anchor**: Configured as a native `desktop` window type. Compatible with GNOME Shell (Wayland & X11) and guaranteed not to minimize when pressing <kbd>Win</kbd> + <kbd>D</kbd>.
+- **Autostart**: Powered by an XDG desktop entry (`~/.config/autostart/zenith-conky.desktop`) with display server stabilization delay.
+- **Hardware Telemetry**:
+  - Live CPU Load %, Frequency & Multi-core Graph
+  - RAM & Swap usage micro-bars
+  - Root NVMe storage telemetry
+  - Auto-detected Network Upload & Download speeds
+  - Top 5 real-time resource-consuming processes
 
-### Changing Accent Colors
+---
 
-Open `~/.config/conky/conky.conf` and modify the color palette section:
+## ⚡ 2. Terminal & CLI Power Suite
 
-```lua
-    -- Color Palette
-    default_color = '#EAEAEA',
-    color0 = '#E11D48', -- Primary Accent (Default: African Coral / Carmine)
-    color1 = '#FFFFFF', -- Crisp White (Values)
-    color2 = '#8E8E98', -- Muted Slate (Labels)
-    color3 = '#3A3A42', -- Separator Rule
-    color4 = '#10B981', -- Emerald Green (Disk / Upload)
-    color5 = '#38BDF8', -- Sky Cyan (RAM / Download)
+* **Starship Prompt**: Blazing-fast Rust-based prompt displaying Git branch & dirty state, runtime badges (Node.js, Python, Rust), execution time, and emerald/carmine status indicators.
+* **Terminator Zenith Theme**: Obsidian `#090A0F` dark palette, hidden scrollbar, borderless geometry, and quick split shortcuts (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>E</kbd> vertical, <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>O</kbd> horizontal).
+* **Persistent Sessions (Tmux)**: Powered by `tmux-resurrect` and `tmux-continuum`. Automatically saves your open panes and working directories every 15 minutes and restores them after system reboot.
+* **Modern CLI Stack**:
+  * `lazygit` (`lg`): Terminal Git TUI
+  * `ripgrep` (`rg`): Ultra-fast codebase search
+  * `uv`: 100x faster Python virtual environments & pip replacement
+  * `eza`: Modern `ls` with file icons and Git status
+  * `bat`: Syntax-highlighted file viewing
+  * `zoxide`: Smarter directory jumping (`z <folder>`)
+
+---
+
+## 🏎️ 3. Super-Machine Performance Tuning
+
+Run the performance module via `sudo ./scripts/setup-supermachine.sh`:
+
+- **zRAM Swap Expansion**: Allocates 60% of physical RAM as a compressed in-memory swap pool using `zstd`. Delivers ~24–28 GB effective memory with near-zero latency and zero SSD wear.
+- **Google BBR Congestion Control**: Replaces legacy `cubic` with `bbr` + `fq` packet scheduler for faster throughput and lower latency over WiFi.
+- **VFS Cache Pressure**: Tuned to `50` to retain directory inodes and file indexes in RAM longer.
+- **Snap Bloat Reduction**: Enforces `refresh.retain=2` to purge gigabytes of dead revisions and eliminate loop devices.
+
+---
+
+## 📁 Repository Structure
+
 ```
-
-* **Cyberpunk Cyan**: Set `color0 = '#00F0FF'`
-* **Matrix Green**: Set `color0 = '#00FF66'`
-* **Purple Royale**: Set `color0 = '#A855F7'`
-* **Amber Flame**: Set `color0 = '#F59E0B'`
-
-### Adjusting Screen Position
-
-In the config header:
-```lua
-    alignment = 'top_left', -- Options: top_left, top_right, bottom_left, bottom_right
-    gap_x = 45,             -- Horizontal margin in pixels
-    gap_y = 50,             -- Vertical margin in pixels
+zenith-conky/
+├── configs/
+│   ├── conky.conf              # Zenith HUD telemetry config
+│   ├── starship.toml           # Zenith dark prompt with runtime & git badges
+│   ├── terminator.config       # Minimalist Zenith dark terminal profile & shortcuts
+│   └── tmux.conf               # Persistent session save/restore config
+├── scripts/
+│   ├── start_zenith.sh         # Conky launcher with Wayland/X11 display delay
+│   ├── setup-supermachine.sh   # Kernel BBR, zRAM 60% zstd, sysctl tweaks
+│   └── manage-apps.sh          # Snap cleanup, VS Code deb migration, Bruno setup
+├── install.sh                  # Master interactive/automated installer
+├── uninstall.sh                # Clean uninstaller
+├── LICENSE
+└── README.md
 ```
 
 ---
 
 ## 🗑️ Uninstallation
 
-To remove Zenith Conky and restore your previous config:
+To remove Zenith Conky and restore any previous configuration:
 
 ```bash
 cd ~/.zenith-conky
@@ -83,4 +109,4 @@ cd ~/.zenith-conky
 
 ## 📄 License
 
-MIT License © 2026 Chidera (odesigo). Free for personal and commercial use.
+MIT License © 2026 Vercura Systems. Free for personal and commercial use.
