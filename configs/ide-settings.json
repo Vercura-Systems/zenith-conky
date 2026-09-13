@@ -1,9 +1,41 @@
 {
     // =========================================================================
-    // Zenith IDE Aesthetic: Dark, Informative & Stylish
+    // Zenith IDE Aesthetic: Pure OLED Black, Informative & Stylish
     // =========================================================================
     "workbench.colorTheme": "Tokyo Night",
     "workbench.iconTheme": "material-icon-theme",
+
+    // True Pitch-Black OLED Theme Overrides (Matches Desktop Wallpaper 1:1)
+    "workbench.colorCustomizations": {
+        "editor.background": "#000000",
+        "sideBar.background": "#000000",
+        "sideBar.border": "#121218",
+        "sideBarSectionHeader.background": "#000000",
+        "sideBarSectionHeader.border": "#121218",
+        "activityBar.background": "#000000",
+        "activityBar.border": "#121218",
+        "activityBar.activeBorder": "#E11D48",
+        "statusBar.background": "#000000",
+        "statusBar.border": "#121218",
+        "statusBar.foreground": "#A0A0B0",
+        "titleBar.activeBackground": "#000000",
+        "titleBar.activeForeground": "#EAEAEA",
+        "titleBar.border": "#121218",
+        "panel.background": "#000000",
+        "panel.border": "#121218",
+        "terminal.background": "#000000",
+        "tab.activeBackground": "#000000",
+        "tab.activeBorderTop": "#E11D48",
+        "tab.inactiveBackground": "#050508",
+        "tab.border": "#121218",
+        "editorGroupHeader.tabsBackground": "#000000",
+        "editorGroupHeader.tabsBorder": "#121218",
+        "editorLineNumber.activeForeground": "#E11D48",
+        "editorLineNumber.foreground": "#3A3A4A",
+        "editor.lineHighlightBackground": "#08090E",
+        "editorGutter.background": "#000000",
+        "breadcrumb.background": "#000000"
+    },
 
     // Typography & Ligatures (Fira Code)
     "editor.fontFamily": "'Fira Code', 'Ubuntu Sans Mono', monospace",
@@ -56,6 +88,10 @@
     "explorer.confirmDragAndDrop": false,
     "javascript.updateImportsOnFileMove.enabled": "always",
     "typescript.updateImportsOnFileMove.enabled": "always",
+
+    // Markdown & CSV Enhancements
+    "markdown-preview-enhanced.theme": "atom-dark.css",
+    "markdown-preview-enhanced.previewTheme": "atom-dark.css",
 
     // PHP & Language Tooling
     "php.suggest.basic": false,
