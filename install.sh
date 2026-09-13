@@ -220,7 +220,7 @@ case "$1" in
         echo "  2) Zenith Conky HUD only"
         echo "  3) Developer Terminal Suite only (Starship, LazyGit, Ripgrep, Tmux, Terminator)"
         echo "  4) System Performance Tuning (zRAM zstd 60%, Google BBR, Sysctl)"
-        echo "  5) App Streamlining & Snap Cleanup (VS Code .deb, Bruno, disable MySQL)"
+        echo "  5) App Streamlining & Snap Cleanup (VS Code .deb, Bruno, Snap purge)"
         echo "  q) Quit"
         echo ""
         read -p "Enter choice [1-5]: " choice

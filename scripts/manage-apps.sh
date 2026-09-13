@@ -37,19 +37,19 @@ snap list --all | awk '/disabled/{print $1, $3}' |
 echo -e "${GREEN}[✓] Snap storage cleaned.${NC}\n"
 
 # ------------------------------------------------------------------------------
-# 2. Stop & Disable Idle MySQL Service (Frees ~600 MB RAM)
+# 2. Database Services (Kept Active for Local Laravel / PHP Development)
 # ------------------------------------------------------------------------------
-echo -e "${CYAN}[2/6] Disabling MySQL auto-start on boot (saves ~600MB RAM)...${NC}"
+echo -e "${CYAN}[2/5] Checking Database Services (MySQL kept active for local dev)...${NC}"
 if systemctl is-active --quiet mysql; then
-    systemctl stop mysql
+    echo -e "${GREEN}[✓] MySQL service is active and running for local development.${NC}\n"
+else
+    echo -e "  MySQL is not currently running.\n"
 fi
-systemctl disable mysql || true
-echo -e "${GREEN}[✓] MySQL service disabled on boot (run 'sudo systemctl start mysql' when needed).${NC}\n"
 
 # ------------------------------------------------------------------------------
 # 3. Purge Redundant DBeaver Snap (Keep sleek Beekeeper Studio)
 # ------------------------------------------------------------------------------
-echo -e "${CYAN}[3/6] Purging redundant DBeaver Snap...${NC}"
+echo -e "${CYAN}[3/5] Purging redundant DBeaver Snap...${NC}"
 if snap list | grep -q "dbeaver-ce"; then
     snap remove dbeaver-ce || true
     echo -e "${GREEN}[✓] DBeaver removed. Beekeeper Studio is active and ready.${NC}\n"
@@ -60,7 +60,7 @@ fi
 # ------------------------------------------------------------------------------
 # 4. Remove Unofficial WhatsApp Snap
 # ------------------------------------------------------------------------------
-echo -e "${CYAN}[4/6] Removing unmaintained WhatsApp Snap...${NC}"
+echo -e "${CYAN}[4/5] Removing unmaintained WhatsApp Snap...${NC}"
 if snap list | grep -q "whatsapp-linux-app"; then
     snap remove whatsapp-linux-app || true
     echo -e "${GREEN}[✓] WhatsApp Snap removed (use Chrome/Firefox PWA instead).${NC}\n"
@@ -71,7 +71,7 @@ fi
 # ------------------------------------------------------------------------------
 # 5. Swap VS Code Snap -> Official Microsoft .deb Repo
 # ------------------------------------------------------------------------------
-echo -e "${CYAN}[5/6] Swapping VS Code Snap to Official Microsoft Repository...${NC}"
+echo -e "${CYAN}[4/5] Swapping VS Code Snap to Official Microsoft Repository...${NC}"
 # Add Microsoft GPG key & APT repo
 mkdir -p /etc/apt/keyrings
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor --yes -o /etc/apt/keyrings/packages.microsoft.gpg
@@ -89,7 +89,7 @@ echo -e "${GREEN}[✓] Official VS Code (.deb) installed with full hardware/keyr
 # ------------------------------------------------------------------------------
 # 6. Install Bruno (.deb) & Remove Heavy Postman Snap
 # ------------------------------------------------------------------------------
-echo -e "${CYAN}[6/6] Installing Bruno (.deb) and purging Postman...${NC}"
+echo -e "${CYAN}[5/5] Installing Bruno (.deb) and purging Postman...${NC}"
 BRUNO_DEB="/tmp/bruno_latest_amd64.deb"
 BRUNO_URL=$(curl -s "https://api.github.com/repos/usebruno/bruno/releases/latest" | grep -o 'https://[^"]*amd64_linux\.deb' | head -1)
 
